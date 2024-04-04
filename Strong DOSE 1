@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+bool prime(int n)
+{
+    int flag=1;
+    for(int i=2;i<=n/2;i++)
+    {
+        if(n%i==0)
+            flag=0;
+    }
+    if(flag==1)
+        return 1;
+    else
+        return 0;
+}
+
+int count (int x)
+{
+    int count=0;
+    for(int i=2;i<=x;i++)
+    {
+        if(prime(i))
+        {
+            if(x%i==0)
+                count++;
+        }
+    }
+    return count;
+}
+
+bool satisfy(int n,int N)
+{
+    for(int i=0;i<N;i++)
+    {
+        if(count(n+i)!=N)
+            return 0;
+    }
+    return 1;
+}
+void main()
+{
+    int flag=1,N;
+    printf("N numbers having the property that Each has different N Factors (N>1) \n");
+    while(flag)
+    {
+        printf("Enter the Value of N : ");
+        scanf("%d",&N);
+              if(N>1)
+              flag=0;
+              else
+                printf("INVALID INPUT\n");
+    }
+
+    int first_num=4; //First Co-prime Number
+    while(!satisfy(first_num,N))
+    {
+        first_num++;
+    }
+
+    printf("The First of the %d consecutive integer is %d ",N,first_num);
+
+}
