@@ -1,0 +1,39 @@
+from PIL import Image
+
+# Loading the image
+image_path = "your_image.jpg"
+image = Image.open(image_path)
+
+threshold = (160, 160, 160)
+
+# Initialize counters
+countA = 0
+countB = 0
+
+# Define brightness level
+brightness_level = 120  # Adjust as needed
+
+# Convert image to grayscale
+grayscale_image = image.convert('L')
+
+# Iterate over each pixel in the image
+for pixel in image.getdata():
+    # Check if pixel is typeA or typeB
+    if all(value > threshold[i] for i, value in enumerate(pixel)):
+        countA += 1
+    else:
+        countB += 1
+
+# Calculate percentages
+total_pixels = image.width * image.height
+percentA = (countA / total_pixels) * 100
+percentB = (countB / total_pixels) * 100
+
+print("Percentage of Type A pixels:", percentA)
+print("Percentage of Type B pixels:", percentB)
+
+# Convert the image to black and white based on brightness level
+bw_image = grayscale_image.point(lambda p: 0 if p > brightness_level else 255)
+
+# Display the black and white image
+bw_image.show()
