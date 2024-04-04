@@ -1,0 +1,24 @@
+#include <iostream>
+using namespace std;
+
+struct Custom {
+    int value;
+};
+
+void display(const Custom& data) {
+    std::cout << "Value stored in Custom Data Type: " << data.value << std::endl;
+}
+
+auto lambdaFun = [](const Custom& data) {
+    display(data);
+};
+
+int main() {
+    Custom data;
+    cout<<"Enter the Value You want to store :";
+    cin>>data.value;
+
+    lambdaFun(data);
+
+    return 0;
+}
