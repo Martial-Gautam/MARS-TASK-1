@@ -7,15 +7,15 @@ using namespace std;
 
 class Person {
 private:
-    std::string name;
+    string name;
     int level;
 
 public:
 
-    Person(const std::string& name, int level) : name(name), level(level) {}
+    Person(const string &name, int level) : name(name), level(level) {}
 
 
-    std::string getName() const {
+    string getName() const {
         return name;
     }
 
@@ -31,59 +31,71 @@ public:
 
 
 class hierarchy {
-private:
-    std::vector<Person> people;
+    private:
+        vector<Person> people;
 
-public:
-    // Function to insert a person to the hierarchy
-    void addPerson(const Person& person) {
-        people.push_back(person);
-    }
-
-    // Function for communication
-    void communicate(const std::string& sender, const std::string& receiver) {
-        Person* senderPtr = nullptr;
-        Person* receiverPtr = nullptr;
-
-
-        for (auto& person : people) {
-            if (person.getName() == sender) {
-                senderPtr = &person;
-            }
-            if (person.getName() == receiver) {
-                receiverPtr = &person;
-            }
+    public:
+        // Function to insert a person to the hierarchy
+        void addPerson(const Person &person) {
+            people.push_back(person);
         }
 
+        // Function for communication
+        void communicate(const std::string& sender, const std::string& receiver) {
+            Person* senderPtr = nullptr;
+            Person* receiverPtr = nullptr;
 
-        if (senderPtr && receiverPtr) {
-            std::cout << sender << " communicates with " << receiver << " successfully." << std::endl;
-        } else {
-            std::cout << "Person not found." << std::endl;
+
+            for (auto& person : people) {
+                if (person.getName() == sender) {
+                    senderPtr = &person;
+                }
+                if (person.getName() == receiver) {
+                    receiverPtr = &person;
+                }
+            }
+
+
+            if (senderPtr && receiverPtr) {
+                std::cout << sender << " communicates with " << receiver << " successfully." << std::endl;
+            } else {
+                std::cout << "Person not found." << std::endl;
+            }
         }
-    }
 };
 
 int main() {
 
     hierarchy mars;
-    string name1,name2,name3;
+    string name[100];
+    int flag=1;
+    int i=0;
+    while(flag)
+    {
+        static int var=1;
 
-    cout<<"Enter the Name :";
-    cin>>name1;
+        switch(var)
+        {
+            case 0: flag=0;
+                break;
+            default:
+                cout<<"Enter the Name :";
+                cin>>name[i];
+                mars.addPerson(Person(name[i],i+1));
+                cout<<"Press '0' to exit || Press Any Key to Add More people"<<endl;
+                cin>>var;
+                i++;
+        }
+    }
 
-    cout<<"Enter the Name :";
-    cin>>name2;
+    /*for(int j=i;j>=0;j--){
+    mars.communicate(name[j], name[j+2]);}
+    //mars.communicate(name1, name2);*/
 
-    cout<<"Enter the Name :";
-    cin>>name3;
-    mars.addPerson(Person(name1, 3));
-    mars.addPerson(Person(name2, 2));
-    mars.addPerson(Person(name3, 1));
-
-
-    mars.communicate(name1, name3);
-    mars.communicate(name1, name2);
+    string name1,name2;
+    cout<<"Enter the Name You want to check the Communication"<<endl;
+    cin>>name1>>name2;
+    mars.communicate(name1,name2);
 
     return 0;
 }
